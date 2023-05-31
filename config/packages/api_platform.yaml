@@ -1,0 +1,9 @@
+api_platform:
+  show_webby: false
+  title: 'Projects and Tasks'
+  description: 'Simple application used to manage projects and tasks'
+  version: 1.0.0
+  defaults:
+    extra_properties:
+      standard_put: true
+    collect_denormalization_errors: true

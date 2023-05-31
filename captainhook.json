@@ -1,0 +1,81 @@
+{
+    "config": {
+        "run-mode": "docker",
+        "run-exec": "docker exec projects-and-tasks-app",
+        "plugins": [
+            {
+                "plugin": "\\CaptainHook\\App\\Plugin\\Hook\\PreserveWorkingTree",
+                "options": []
+            }
+        ]
+    },
+    "commit-msg": {
+        "enabled": true,
+        "actions": []
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": []
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer fix",
+                "options": []
+            },
+            {
+                "action": "composer analyze",
+                "options": []
+            },
+            {
+                "action": "composer test",
+                "options": []
+            },
+            {
+                "action": "git add {$STAGED_FILES|of-type:php}",
+                "options": []
+            }
+        ]
+    },
+    "prepare-commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-commit": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-merge": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-checkout": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-rewrite": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-change": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer install",
+                "options": [],
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileChanged\\Any",
+                        "args": [
+                            [
+                                "composer.json",
+                                "composer.lock"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
