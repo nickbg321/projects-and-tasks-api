@@ -7,3 +7,6 @@ api_platform:
     extra_properties:
       standard_put: true
     collect_denormalization_errors: true
+    pagination_items_per_page: 20
+    pagination_maximum_items_per_page: 100
+    pagination_client_items_per_page: true
