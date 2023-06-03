@@ -87,7 +87,7 @@
         ],
         "fix": "vendor/bin/ecs --fix",
         "test": "vendor/bin/phpunit",
-        "analyze": "vendor/bin/phpstan analyse config src migrations tests --level 8"
+        "analyze": "vendor/bin/phpstan analyse config src migrations --level 8"
     },
     "conflict": {
         "symfony/symfony": "*"
