@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Task;
 
-use App\Repository\TaskRepository;
+use App\Project\Project;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -33,13 +33,9 @@ class Task
     #[ORM\JoinColumn(nullable: false)]
     private Project $project;
 
-    public function __construct(string $description, Project $project)
+    public function __construct()
     {
         $this->id = Uuid::v7();
-        $this->description = $description;
-        $this->project = $project;
-
-        $project->addTask($this);
     }
 
     public function getId(): Uuid
@@ -62,14 +58,9 @@ class Task
         return $this->isCompleted;
     }
 
-    public function markAsCompleted(): void
+    public function setIsCompleted(bool $isCompleted): void
     {
-        $this->isCompleted = true;
-    }
-
-    public function markAsPending(): void
-    {
-        $this->isCompleted = false;
+        $this->isCompleted = $isCompleted;
     }
 
     public function getProject(): Project

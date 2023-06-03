@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Project;
 
-use App\Entity\Enum\ProjectStatus;
-use App\Repository\ProjectRepository;
+use App\Task\Task;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -51,12 +51,9 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class, orphanRemoval: true)]
     private Collection $tasks;
 
-    public function __construct(string $title, string $description, DateTimeInterface $dueDate)
+    public function __construct()
     {
         $this->id = Uuid::v7();
-        $this->title = $title;
-        $this->description = $description;
-        $this->dueDate = $dueDate;
         $this->tasks = new ArrayCollection();
     }
 
@@ -95,7 +92,7 @@ class Project
         $this->status = $status;
     }
 
-    public function getDueDate(): ?DateTimeInterface
+    public function getDueDate(): DateTimeInterface
     {
         return $this->dueDate;
     }
@@ -131,6 +128,14 @@ class Project
     public function getTasks(): Collection
     {
         return $this->tasks;
+    }
+
+    /**
+     * @return ReadableCollection<int, Task>
+     */
+    public function getPendingTasks(): ReadableCollection
+    {
+        return $this->getTasks()->filter(fn (Task $task) => !$task->isCompleted());
     }
 
     public function addTask(Task $task): void
