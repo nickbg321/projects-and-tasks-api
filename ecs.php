@@ -25,7 +25,6 @@ return function (ECSConfig $ecsConfig): void {
         StandaloneLinePromotedPropertyFixer::class,
         GlobalNamespaceImportFixer::class,
         DeclareStrictTypesFixer::class,
-        ClassAttributesSeparationFixer::class,
         LineLengthFixer::class,
         PhpdocOrderFixer::class,
         PhpdocAlignFixer::class,
