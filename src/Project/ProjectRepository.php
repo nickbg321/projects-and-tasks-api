@@ -65,6 +65,7 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
+            ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
