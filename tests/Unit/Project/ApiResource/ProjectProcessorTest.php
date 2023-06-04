@@ -105,7 +105,7 @@ final class ProjectProcessorTest extends UnitTestCase
         $data->id = Uuid::v7();
         $data->title = 'My project';
         $data->description = 'Project description';
-        $data->dueDate = new DateTimeImmutable('2023-05-28');
+        $data->dueDate = '2023-05-28';
         $data->status = ProjectStatus::New->value;
         $data->client = 'John Doe';
         $data->company = 'Acme corp.';

@@ -14,10 +14,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Project\Project;
 use App\Project\Validator as CustomAssert;
-use DateTimeInterface;
-use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -53,9 +50,9 @@ class ProjectResource
     public string $status;
 
     #[Assert\NotBlank(normalizer: 'trim')]
+    #[Assert\Date]
     #[Groups([self::READ_GROUP, self::WRITE_GROUP])]
-    #[Serializer\Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
-    public DateTimeInterface $dueDate;
+    public string $dueDate;
 
     #[Assert\Length(max: 255)]
     #[Groups([self::READ_GROUP, self::WRITE_GROUP])]
@@ -72,7 +69,7 @@ class ProjectResource
         $resource->title = $project->getTitle();
         $resource->description = $project->getDescription();
         $resource->status = $project->getStatus()->value;
-        $resource->dueDate = $project->getDueDate();
+        $resource->dueDate = $project->getDueDate()->format('Y-m-d');
         $resource->client = $project->getClient();
         $resource->company = $project->getCompany();
 

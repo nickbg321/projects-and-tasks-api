@@ -10,8 +10,10 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Project\Project;
 use App\Project\ProjectRepository;
 use App\Project\ProjectUpdatedEvent;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use Exception;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final readonly class ProjectProcessor implements ProcessorInterface
@@ -29,6 +31,7 @@ final readonly class ProjectProcessor implements ProcessorInterface
      * @param array<string, mixed> $context
      *
      * @throws EntityNotFoundException
+     * @throws Exception
      */
     public function process(
         mixed $data,
@@ -52,7 +55,7 @@ final readonly class ProjectProcessor implements ProcessorInterface
 
         $project->setTitle($data->title);
         $project->setDescription($data->description);
-        $project->setDueDate($data->dueDate);
+        $project->setDueDate(new DateTimeImmutable($data->dueDate));
         $project->setClient($data->client);
         $project->setCompany($data->company);
 
