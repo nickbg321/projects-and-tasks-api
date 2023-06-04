@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Task;
 
-use App\Project\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NonUniqueResultException;
@@ -63,34 +62,6 @@ class TaskRepository extends ServiceEntityRepository
     public function findTasks(int $limit, int $offset): array
     {
         return $this->createQueryBuilder('t')
-            ->setMaxResults($limit)
-            ->setFirstResult($offset)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
-    public function getCountForProject(Project $project): int
-    {
-        return $this->createQueryBuilder('t')
-            ->select('COUNT(t.id)')
-            ->andWhere('t.project = :project')
-            ->setParameter('project', $project)
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
-
-    /**
-     * @return array<Task>
-     */
-    public function findTasksForProject(Project $project, int $limit, int $offset): array
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.project = :project')
-            ->setParameter('project', $project)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->getQuery()

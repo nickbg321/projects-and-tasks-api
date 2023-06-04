@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
@@ -30,7 +31,11 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(),
         new GetCollection(
             uriTemplate: '/projects/{id}/tasks',
+            uriVariables: [
+                'id' => new Link(fromProperty: 'id', fromClass: ProjectResource::class),
+            ],
             openapi: new Operation(summary: self::OPENAPI_DESCRIPTION, description: self::OPENAPI_DESCRIPTION,),
+            paginationEnabled: false,
             provider: ProjectTaskProvider::class,
         ),
     ],
