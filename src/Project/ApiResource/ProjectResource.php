@@ -21,8 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: 'Project',
     operations: [new Get(), new GetCollection(), new Put(), new Post(), new Patch(), new Delete()],
-    normalizationContext: ['groups' => [self::READ_GROUP]],
-    denormalizationContext: ['groups' => [self::WRITE_GROUP]],
+    normalizationContext: [
+        'groups' => [self::READ_GROUP],
+    ],
+    denormalizationContext: [
+        'groups' => [self::WRITE_GROUP],
+    ],
     provider: ProjectProvider::class,
     processor: ProjectProcessor::class,
 )]
@@ -30,6 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProjectResource
 {
     final public const READ_GROUP = 'project:read';
+
     final public const WRITE_GROUP = 'project:write';
 
     #[ApiProperty(required: true, identifier: true)]

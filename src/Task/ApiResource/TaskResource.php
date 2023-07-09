@@ -34,19 +34,24 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'id' => new Link(fromProperty: 'id', fromClass: ProjectResource::class),
             ],
-            openapi: new Operation(summary: self::OPENAPI_DESCRIPTION, description: self::OPENAPI_DESCRIPTION,),
+            openapi: new Operation(summary: self::OPENAPI_DESCRIPTION, description: self::OPENAPI_DESCRIPTION),
             paginationEnabled: false,
             provider: ProjectTaskProvider::class,
         ),
     ],
-    normalizationContext: ['groups' => [self::READ_GROUP]],
-    denormalizationContext: ['groups' => [self::WRITE_GROUP]],
+    normalizationContext: [
+        'groups' => [self::READ_GROUP],
+    ],
+    denormalizationContext: [
+        'groups' => [self::WRITE_GROUP],
+    ],
     provider: TaskProvider::class,
     processor: TaskProcessor::class,
 )]
 class TaskResource
 {
     final public const READ_GROUP = 'task:read';
+
     final public const WRITE_GROUP = 'task:write';
 
     private const OPENAPI_DESCRIPTION = 'Retrieves the collection of Task resources assigned to a Project resource.';
