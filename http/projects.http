@@ -1,0 +1,42 @@
+### Get all projects
+GET https://{{host}}//api/projects
+Accept: application/ld+json
+
+### Get one project
+GET https://{{host}}//api/projects/018a20f6-8e23-7c00-a2eb-40728c748daa
+Accept: application/ld+json
+
+### Create project
+POST https://{{host}}//api/projects
+Content-Type: application/json
+
+{
+    "title": "New project",
+    "description": "My project's description",
+    "dueDate": "2023-07-05",
+    "client": "John Doe",
+    "company": "Acme corp."
+}
+
+### Replace project
+PUT https://{{host}}//api/projects/018a20f6-8e23-7c00-a2eb-40728c748daa
+Content-Type: application/json
+
+{
+    "title": "My project",
+    "description": "My project's description",
+    "dueDate": "2023-07-05",
+    "client": "John Doe",
+    "company": "Acme corp."
+}
+
+### Partially update project
+PATCH https://{{host}}//api/projects/018a20f6-8e23-7c00-a2eb-40728c748daa
+Content-Type: application/merge-patch+json
+
+{
+    "title": "My project 3"
+}
+
+### Delete project
+DELETE https://{{host}}//api/projects/018a1be3-7c73-7300-a77e-b31b87b06545

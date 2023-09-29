@@ -1,0 +1,32 @@
+### Get all tasks
+GET https://{{host}}//api/tasks
+Accept: application/ld+json
+
+### Get one task
+GET https://{{host}}//api/tasks/018a1be3-7c7c-794f-9193-e3e05966be5d
+Accept: application/ld+json
+
+### Get tasks for project
+GET https://{{host}}//api/projects/018a20f6-8e23-7c00-a2eb-40728c748daa/tasks
+Accept: application/ld+json
+
+### Create task
+POST https://{{host}}//api/tasks
+Content-Type: application/json
+
+{
+    "description": "Work",
+    "isCompleted": false,
+    "project": "/api/projects/018a20f6-8e23-7c00-a2eb-40728c748daa"
+}
+
+### Partially update task
+PATCH https://{{host}}//api/tasks/018ae1be-d607-748c-a433-e3f10bcc0077
+Content-Type: application/merge-patch+json
+
+{
+    "isCompleted": true
+}
+
+### Delete task
+DELETE https://{{host}}//api/tasks/018a1be3-7c82-7825-b362-e697a52afb76
