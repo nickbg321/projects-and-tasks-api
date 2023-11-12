@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\Import\GlobalNamespaceImportFixer;
-use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocOrderFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer;
-use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -23,8 +21,6 @@ return function (ECSConfig $ecsConfig): void {
 
     $ecsConfig->rules([
         GlobalNamespaceImportFixer::class,
-        DeclareStrictTypesFixer::class,
-        IsNullFixer::class,
         LineLengthFixer::class,
         PhpdocOrderFixer::class,
         PhpdocAlignFixer::class,
@@ -49,5 +45,6 @@ return function (ECSConfig $ecsConfig): void {
         SetList::ARRAY,
         SetList::SPACES,
         SetList::DOCBLOCK,
+        SetList::STRICT,
     ]);
 };
