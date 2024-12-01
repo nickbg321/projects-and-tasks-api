@@ -1,0 +1,36 @@
+services:
+  app:
+    container_name: projects-and-tasks-app
+    build:
+      context: .
+      args:
+        - "UID=${UID:-1000}"
+        - "GID=${GID:-1000}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      PHP_IDE_CONFIG: serverName=projects-and-tasks-app
+  postgres:
+    container_name: projects-and-tasks-postgres
+    image: postgres:15.10
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
+  caddy_data:
+  caddy_config:
